@@ -103,7 +103,7 @@ public class Strings {
         String repetir = "Ha".repeat(3); // "HaHaHa"
 
         // 13. Limpieza de caracteres
-        String sucio = "H@o#l$a123!";
+        String sucio = "H@o#l$a123-!";
         String limpio = sucio.replaceAll("[^a-zA-Z0-9]", "");
 
         System.out.println(limpio); // "Hola123"

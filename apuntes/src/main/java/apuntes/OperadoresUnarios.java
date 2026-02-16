@@ -2,7 +2,7 @@ package apuntes;
 
 public class OperadoresUnarios {
     public static void main(String[] args) {
-         int a = 5;
+        int a = 5;
 
         // ============================
         // 1. OPERADOR + (positivo)

@@ -139,6 +139,7 @@ public class SetMapyMas {
          * 4. Sort: Para ordenar una lista: Collections.sort(lista); Para un array:
          * Arrays.sort(array);
          */
+
         // ============================
         // 8. TRAMPAS CON MATRICES (Recorridos complejos)
         // ============================
@@ -352,5 +353,129 @@ public class SetMapyMas {
         // SOLUCIÓN:
         // int n = Integer.parseInt(sc.nextLine()); // Leer todo como línea y convertir.
         // Mucho más seguro.
+
+        // ============================
+        // 20. MÉTODOS DE ORDENACIÓN (Sorting)
+        // ============================
+
+        // TRAMPA 1: El método Burbuja (Bubble Sort) - El más básico
+        // Es ineficiente (O(n²)) pero muy común en exámenes.
+        // ¡OJO! No olvides el "-1" en el límite del bucle 'j' para no salirte del array
+        // al comparar con j+1.
+        int[] paraBurbuja = { 5, 2, 8, 1, 9 };
+        for (int i = 0; i < paraBurbuja.length - 1; i++) {
+            for (int j = 0; j < paraBurbuja.length - 1 - i; j++) {
+                if (paraBurbuja[j] > paraBurbuja[j + 1]) {
+                    // Intercambio (Swap)
+                    int temp = paraBurbuja[j];
+                    paraBurbuja[j] = paraBurbuja[j + 1];
+                    paraBurbuja[j + 1] = temp;
+                }
+            }
+        }
+
+        // TRAMPA 2: Ordenar Objetos Personalizados (Comparator vs Comparable)
+        // Si tienes una lista de objetos "Coche", Collections.sort() no sabrá si
+        // ordenar por precio, marca o año.
+        // TRUCO EXAMEN: Usa una expresión Lambda (Java 8+) para no tener que crear
+        // clases extra.
+        List<String> nombres = new ArrayList<>(Arrays.asList("Ana", "Zacarias", "Beto"));
+
+        // Ordenar de mayor a menor (Inverso):
+        nombres.sort((a2, b2) -> b2.compareTo(a2));
+
+        // TRAMPA 3: Ordenar y perder el índice original
+        // Si ordenas un array de precios, ya no sabrás a qué producto pertenecía cada
+        // uno.
+        // SOLUCIÓN: Si necesitas mantener la relación, usa un Map antes de ordenar o
+        // crea una clase que guarde ambos datos.
+
+        // TRAMPA 4: Arrays.sort() con tipos primitivos vs Objetos
+        int[] arrP = { 3, 1, 2 };
+        Arrays.sort(arrP); // Funciona directo.
+
+        // Pero si quieres orden descendente con Arrays.sort, el array DEBE SER de
+        // Objetos (Integer[]).
+        Integer[] arrO = { 3, 1, 2 };
+        Arrays.sort(arrO, (x, y) -> y - x); // Solo funciona con Integer[], no con int[].
+
+        // TRAMPA 5: La estabilidad del orden
+        // Si ordenas por "Apellido" y luego por "Nombre", asegúrate de que el método
+        // sea "estable" para que no desordene los apellidos al organizar los nombres.
+        // (Arrays.sort para objetos y Collections.sort son ESTABLES).
+
+        // ============================
+        // 21. RESUMEN RÁPIDO "MÉTODO SORT"
+        // ============================
+        /*
+         * 1. Arrays de primitivos: Arrays.sort(miArray);
+         * 2. Listas: Collections.sort(miLista); o miLista.sort(null);
+         * 3. Orden Personalizado: lista.sort((o1, o2) -> o1.getValor() -
+         * o2.getValor());
+         * 4. ¡IMPORTANTE!: Ordenar SIEMPRE invalida cualquier búsqueda binaria previa.
+         * Primero se ordena, LUEGO se busca.
+         */
+
+        // ============================
+        // 22. RECURSIVIDAD (El clásico)
+        // ============================
+        // TRAMPA: Olvidar el "Caso Base". Sin él, el programa lanza un StackOverflowError.
+        // Siempre debe haber una condición que detenga las llamadas.
+        // Ejemplo: factorial(5) -> 5 * 4 * 3 * 2 * 1
+        
+        // (Nota: Esto iría como método fuera del main, pero aquí tienes la lógica)
+        /*
+        public static int factorial(int n) {
+            if (n <= 1) return 1; // CASO BASE: Si no está, el bucle es infinito
+            return n * factorial(n - 1); 
+        }
+        */
+
+        // ============================
+        // 23. TRATAMIENTO DE EXCEPCIONES (Try-Catch)
+        // ============================
+        // TRAMPA: El programa peta si el usuario mete una letra cuando pides un número.
+        try {
+            String entrada = "123a"; 
+            int numero = Integer.parseInt(entrada); // Aquí saltará el error
+        } catch (NumberFormatException e) {
+            System.out.println("TRAMPA EVITADA: No se puede convertir una letra en número");
+        } finally {
+            // Este bloque se ejecuta SIEMPRE, haya error o no. 
+            // Útil para cerrar Scanners o conexiones.
+        }
+
+        // ============================
+        // 24. EFICIENCIA CON STRINGBUILDER
+        // ============================
+        // TRAMPA: Concatenar Strings con "+" dentro de un bucle muy largo.
+        // Como los Strings son inmutables, Java crea un objeto nuevo en cada vuelta. Es LENTO.
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < 5; i++) {
+            sb.append("Dato").append(i).append(" "); // Mucho más rápido y eficiente
+        }
+        String resultadoFinal = sb.toString();
+
+        // ============================
+        // 25. DIAGONALES EN MATRICES (Geometría)
+        // ============================
+        int[][] mExamen = {
+            {1, 2, 3},
+            {4, 5, 6},
+            {7, 8, 9}
+        };
+
+        for (int i = 0; i < mExamen.length; i++) {
+            for (int j = 0; j < mExamen[i].length; j++) {
+                // TRAMPA: Diagonal Principal (1, 5, 9)
+                if (i == j) { 
+                    // Es elemento de la diagonal principal
+                }
+                // TRAMPA: Diagonal Secundaria (3, 5, 7)
+                if (i + j == mExamen.length - 1) {
+                    // Es elemento de la diagonal secundaria
+                }
+            }
+        }
     }
 }

@@ -419,29 +419,30 @@ public class SetMapyMas {
         // ============================
         // 22. RECURSIVIDAD (El clásico)
         // ============================
-        // TRAMPA: Olvidar el "Caso Base". Sin él, el programa lanza un StackOverflowError.
+        // TRAMPA: Olvidar el "Caso Base". Sin él, el programa lanza un
+        // StackOverflowError.
         // Siempre debe haber una condición que detenga las llamadas.
         // Ejemplo: factorial(5) -> 5 * 4 * 3 * 2 * 1
-        
+
         // (Nota: Esto iría como método fuera del main, pero aquí tienes la lógica)
         /*
-        public static int factorial(int n) {
-            if (n <= 1) return 1; // CASO BASE: Si no está, el bucle es infinito
-            return n * factorial(n - 1); 
-        }
-        */
+         * public static int factorial(int n) {
+         * if (n <= 1) return 1; // CASO BASE: Si no está, el bucle es infinito
+         * return n * factorial(n - 1);
+         * }
+         */
 
         // ============================
         // 23. TRATAMIENTO DE EXCEPCIONES (Try-Catch)
         // ============================
         // TRAMPA: El programa peta si el usuario mete una letra cuando pides un número.
         try {
-            String entrada = "123a"; 
+            String entrada = "123a";
             int numero = Integer.parseInt(entrada); // Aquí saltará el error
         } catch (NumberFormatException e) {
             System.out.println("TRAMPA EVITADA: No se puede convertir una letra en número");
         } finally {
-            // Este bloque se ejecuta SIEMPRE, haya error o no. 
+            // Este bloque se ejecuta SIEMPRE, haya error o no.
             // Útil para cerrar Scanners o conexiones.
         }
 
@@ -449,7 +450,8 @@ public class SetMapyMas {
         // 24. EFICIENCIA CON STRINGBUILDER
         // ============================
         // TRAMPA: Concatenar Strings con "+" dentro de un bucle muy largo.
-        // Como los Strings son inmutables, Java crea un objeto nuevo en cada vuelta. Es LENTO.
+        // Como los Strings son inmutables, Java crea un objeto nuevo en cada vuelta. Es
+        // LENTO.
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < 5; i++) {
             sb.append("Dato").append(i).append(" "); // Mucho más rápido y eficiente
@@ -460,15 +462,15 @@ public class SetMapyMas {
         // 25. DIAGONALES EN MATRICES (Geometría)
         // ============================
         int[][] mExamen = {
-            {1, 2, 3},
-            {4, 5, 6},
-            {7, 8, 9}
+                { 1, 2, 3 },
+                { 4, 5, 6 },
+                { 7, 8, 9 }
         };
 
         for (int i = 0; i < mExamen.length; i++) {
             for (int j = 0; j < mExamen[i].length; j++) {
                 // TRAMPA: Diagonal Principal (1, 5, 9)
-                if (i == j) { 
+                if (i == j) {
                     // Es elemento de la diagonal principal
                 }
                 // TRAMPA: Diagonal Secundaria (3, 5, 7)
@@ -481,30 +483,65 @@ public class SetMapyMas {
         // ============================
         // 26. EL MÉTODO compareTo (Interfaz Comparable)
         // ============================
-        // TRAMPA: Si intentas ordenar una lista de "Objetos Propios", Java no sabe 
-        // si quieres ordenar por ID, por Nombre o por Nota. 
-        
-        /* LOGICA DEL compareTo:
-        ObjetoA.compareTo(ObjetoB) devuelve un int:
-        - Negativo: Si ObjetoA va ANTES que ObjetoB.
-        - Cero: Si son IGUALES.
-        - Positivo: Si ObjetoA va DESPUÉS que ObjetoB.
-        */
+        // TRAMPA: Si intentas ordenar una lista de "Objetos Propios", Java no sabe
+        // si quieres ordenar por ID, por Nombre o por Nota.
+
+        /*
+         * LOGICA DEL compareTo:
+         * ObjetoA.compareTo(ObjetoB) devuelve un int:
+         * - Negativo: Si ObjetoA va ANTES que ObjetoB.
+         * - Cero: Si son IGUALES.
+         * - Positivo: Si ObjetoA va DESPUÉS que ObjetoB.
+         */
 
         // TRUCO EXAMEN: La "Resta Mágica" para números
         // Si quieres ordenar por una variable 'id' (int):
         // public int compareTo(Alumno otro) {
-        //     return this.id - otro.id;  <-- Si da negativo, 'this' es menor.
+        // return this.id - otro.id; <-- Si da negativo, 'this' es menor.
         // }
 
         // TRAMPA: Ordenar por Strings (Nombres)
         // No restes Strings. Los Strings ya tienen su propio compareTo:
         // public int compareTo(Alumno otro) {
-        //     return this.nombre.compareTo(otro.nombre);
+        // return this.nombre.compareTo(otro.nombre);
         // }
 
         // TRAMPA: Orden Inverso
         // Si quieres que el mayor aparezca primero, simplemente dales la vuelta:
         // return otro.id - this.id;
+
+        /*
+         * Imagina que tienes esta clase fuera del main:
+         * 
+         * class Alumno implements Comparable<Alumno> {
+         * int id;
+         * String nombre;
+         * double nota;
+         * 
+         * // EL MÉTODO CLAVE:
+         * 
+         * @Override
+         * public int compareTo(Alumno otro) {
+         * // Ejemplo A: Ordenar por ID (Ascendente)
+         * return this.id - otro.id;
+         * 
+         * // Ejemplo B: Ordenar por Nombre (Alfabético)
+         * // return this.nombre.compareTo(otro.nombre);
+         * 
+         * // Ejemplo C: Ordenar por Nota (De mayor a menor)
+         * // if (this.nota < otro.nota) return 1;
+         * // if (this.nota > otro.nota) return -1;
+         * // return 0;
+         * }
+         * }
+         */
+
+        // USO EN EL EXAMEN:
+        // List<Alumno> clase = new ArrayList<>();
+        // ... (añadir alumnos)
+
+        // Gracias al compareTo, ahora puedes hacer esto:
+        // Collections.sort(clase);
+        // ¡Y Java ya sabe que debe usar el ID (o lo que hayas puesto)!
     }
 }

@@ -477,5 +477,34 @@ public class SetMapyMas {
                 }
             }
         }
+
+        // ============================
+        // 26. EL MÉTODO compareTo (Interfaz Comparable)
+        // ============================
+        // TRAMPA: Si intentas ordenar una lista de "Objetos Propios", Java no sabe 
+        // si quieres ordenar por ID, por Nombre o por Nota. 
+        
+        /* LOGICA DEL compareTo:
+        ObjetoA.compareTo(ObjetoB) devuelve un int:
+        - Negativo: Si ObjetoA va ANTES que ObjetoB.
+        - Cero: Si son IGUALES.
+        - Positivo: Si ObjetoA va DESPUÉS que ObjetoB.
+        */
+
+        // TRUCO EXAMEN: La "Resta Mágica" para números
+        // Si quieres ordenar por una variable 'id' (int):
+        // public int compareTo(Alumno otro) {
+        //     return this.id - otro.id;  <-- Si da negativo, 'this' es menor.
+        // }
+
+        // TRAMPA: Ordenar por Strings (Nombres)
+        // No restes Strings. Los Strings ya tienen su propio compareTo:
+        // public int compareTo(Alumno otro) {
+        //     return this.nombre.compareTo(otro.nombre);
+        // }
+
+        // TRAMPA: Orden Inverso
+        // Si quieres que el mayor aparezca primero, simplemente dales la vuelta:
+        // return otro.id - this.id;
     }
 }

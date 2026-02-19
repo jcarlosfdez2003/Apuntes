@@ -12,15 +12,46 @@ import java.util.Set;
 import java.util.Iterator;
 
 public class SetMapyMas {
+
     public static void main(String[] args) {
+
+        //  1. Matrices (básico + vecinos)
+        //  2. Listas (ArrayList)
+        //  3. Sets (HashSet / TreeSet)
+        //  4. Maps (HashMap)
+        //  5. Iterator
+        //  6. Búsqueda Binaria (básica)
+        //  7. Trampas generales
+        //  8. Trampas Matrices (Transposición / Irregular)
+        //  9. Trampas Listas y Sets
+        // 10. Trampas Búsqueda Binaria
+        // 11. Trampas Tipos de Datos (Casting / Wrapper)
+        // 12. Maps (null / containsKey)
+        // 13. Matrices (Buscaminas)
+        // 14. Listas (Eliminar duplicados)
+        // 15. Maps (Frecuencia)
+        // 16. Iterator (Filtrado)
+        // 17. Búsqueda Binaria (Punto de corte)
+        // 18. Matrices (Zig-Zag)
+        // 19. Scanner (errores comunes)
+        // 20. Métodos de Ordenación
+        // 21. Resumen método sort()
+        // 22. Recursividad
+        // 23. Excepciones (try-catch)
+        // 24. StringBuilder
+        // 25. Diagonales en matrices
+        // 26. Comparable / compareTo
+        
+        
+        
         // ============================
         // 1. MATRICES (Arrays Bidimensionales)
         // ============================
         // Una matriz es un array de arrays. Ojo: matriz[fila][columna]
         int[][] matriz = {
-                { 1, 2, 3 },
-                { 4, 5, 6 },
-                { 7, 8, 9 }
+            {1, 2, 3},
+            {4, 5, 6},
+            {7, 8, 9}
         };
 
         // TRUCO EXAMEN: Recorrer buscando vecinos sin salirse (Out of Bounds)
@@ -31,14 +62,18 @@ public class SetMapyMas {
                     System.out.println("Encontrado en: " + i + "," + j);
 
                     // CONTROL DE BORDES: Comprobar si existe arriba, abajo, izq, der
-                    if (i > 0)
+                    if (i > 0) {
                         System.out.println("Arriba: " + matriz[i - 1][j]);
-                    if (i < matriz.length - 1)
+                    }
+                    if (i < matriz.length - 1) {
                         System.out.println("Abajo: " + matriz[i + 1][j]);
-                    if (j > 0)
+                    }
+                    if (j > 0) {
                         System.out.println("Izquierda: " + matriz[i][j - 1]);
-                    if (j < matriz[i].length - 1)
+                    }
+                    if (j < matriz[i].length - 1) {
                         System.out.println("Derecha: " + matriz[i][j + 1]);
+                    }
                 }
             }
         }
@@ -105,7 +140,7 @@ public class SetMapyMas {
         // ============================
         // REQUISITO: El array DEBE ESTAR ORDENADO.
         // Es mucho más rápida que la lineal en arrays grandes.
-        int[] nums = { 10, 20, 30, 40, 50, 60, 70 };
+        int[] nums = {10, 20, 30, 40, 50, 60, 70};
         int buscar = 60;
         int inicio = 0;
         int fin = nums.length - 1;
@@ -126,7 +161,6 @@ public class SetMapyMas {
 
         // Atajo de Java para búsqueda binaria (si no te obligan a programarla):
         // int pos = Arrays.binarySearch(nums, buscar);
-
         // ============================
         // 7. CONSEJOS EXTRA (Trampas comunes)
         // ============================
@@ -139,16 +173,14 @@ public class SetMapyMas {
          * 4. Sort: Para ordenar una lista: Collections.sort(lista); Para un array:
          * Arrays.sort(array);
          */
-
         // ============================
         // 8. TRAMPAS CON MATRICES (Recorridos complejos)
         // ============================
-
         // TRAMPA 1: El "Efecto Espejo" o Transposición
         // A veces te piden intercambiar filas por columnas.
         // OJO: Si recorres la matriz entera e intercambias [i][j] con [j][i],
         // ¡lo acabarás intercambiando DOS VECES y se quedará igual!
-        int[][] m = { { 1, 2 }, { 3, 4 } };
+        int[][] m = {{1, 2}, {3, 4}};
         for (int i = 0; i < m.length; i++) {
             for (int j = i + 1; j < m[i].length; j++) { // J empieza en I + 1 (Triángulo superior)
                 int temp = m[i][j];
@@ -160,7 +192,7 @@ public class SetMapyMas {
         // TRAMPA 2: La Matriz "Irregular" (Jagged Array)
         // No todas las filas tienen que medir lo mismo. Si usas matriz[0].length para
         // todo, petará.
-        int[][] irregular = { { 1, 2, 3 }, { 4, 5 }, { 6 } };
+        int[][] irregular = {{1, 2, 3}, {4, 5}, {6}};
         for (int i = 0; i < irregular.length; i++) {
             // SIEMPRE usa irregular[i].length, nunca un número fijo o la longitud de la
             // fila 0.
@@ -172,7 +204,6 @@ public class SetMapyMas {
         // ============================
         // 9. TRAMPAS CON LISTAS Y SETS
         // ============================
-
         // TRAMPA 3: El borrado fantasma en ArrayList
         // Si borras elementos con un for normal (i++), al borrar el elemento 2,
         // el que era el 3 pasa a ser el 2, el bucle salta al 3 y ¡TE SALTAS UNO SIN
@@ -190,26 +221,21 @@ public class SetMapyMas {
         // el Set dejará meter dos alumnos con el mismo DNI porque "son objetos
         // distintos en memoria".
         // REGLA: Si usas Set con objetos propios, necesitas generar Equals/HashCode.
-
         // ============================
         // 10. TRAMPAS DE BÚSQUEDA BINARIA
         // ============================
-
         // TRAMPA 5: El "Bucle Infinito" en Búsqueda Binaria
         // Si olvidas el "+1" o "-1" al mover los límites, el bucle puede no terminar
         // nunca.
         // inicio = medio; <-- MAL (Bucle infinito si inicio y fin están pegados)
         // inicio = medio + 1; <-- BIEN
-
         // TRAMPA 6: El elemento no existe
         // Si el examen pide "insertar si no existe", recuerda que binarySearch de Java
         // devuelve un número negativo si no lo encuentra. No devuelve -1
         // necesariamente.
-
         // ============================
         // 11. TRAMPAS DE TIPOS DE DATOS (Casting)
         // ============================
-
         // TRAMPA 7: La división entera
         // Si buscas la media de una lista de notas:
         int suma = 15;
@@ -220,7 +246,6 @@ public class SetMapyMas {
         // TRAMPA 8: Comparar Strings de entrada (Scanner)
         // Si lees un String de consola con .next() y el usuario pone "Hola Mundo",
         // .next() solo pillará "Hola". Usa .nextLine() para pillar la frase completa.
-
         // TRAMPA 9: El "===" en Objetos Wrapper
         Integer a = 120;
         Integer b = 120;
@@ -233,7 +258,6 @@ public class SetMapyMas {
         // ============================
         // 12. MAPS: El "null" y "containsKey"
         // ============================
-
         // TRAMPA 10: Intentar obtener algo que no existe
         Map<String, String> dicc = new HashMap<>();
         // String valor = dicc.get("clave").toLowerCase(); // ERROR:
@@ -247,9 +271,9 @@ public class SetMapyMas {
         // TRAMPA: Te piden sumar los vecinos de una celda, pero la celda está en una
         // esquina.
         int[][] tablero = {
-                { 1, 0, 1 },
-                { 0, 1, 0 },
-                { 1, 1, 1 }
+            {1, 0, 1},
+            {0, 1, 0},
+            {1, 1, 1}
         };
         int fila = 0, col = 0; // Esquina superior izquierda
         int sumaVecinos = 0;
@@ -286,7 +310,7 @@ public class SetMapyMas {
         // 15. MAPS: FRECUENCIA DE ELEMENTOS
         // ============================
         // TRAMPA: "Dime cuántas veces aparece cada palabra en este array".
-        String[] palabras = { "java", "python", "java", "c++", "java" };
+        String[] palabras = {"java", "python", "java", "c++", "java"};
         Map<String, Integer> contador = new HashMap<>();
 
         for (String p : palabras) {
@@ -312,7 +336,7 @@ public class SetMapyMas {
         // 17. BÚSQUEDA BINARIA: EL "PUNTO DE CORTE"
         // ============================
         // TRAMPA: No buscas un número, buscas el primer número mayor que X.
-        int[] ordenados = { 10, 20, 30, 40, 50 };
+        int[] ordenados = {10, 20, 30, 40, 50};
         int limite = 25;
         int res = -1;
         int ini = 0, f = ordenados.length - 1;
@@ -322,7 +346,7 @@ public class SetMapyMas {
             if (ordenados[z] > limite) {
                 res = ordenados[z]; // Guardamos el candidato
                 f = z - 1; // Seguimos buscando a la izquierda por si hay uno más pequeño que también sea >
-                           // 25
+                // 25
             } else {
                 ini = z + 1;
             }
@@ -332,14 +356,16 @@ public class SetMapyMas {
         // 18. RECORRIDO EN ZIG-ZAG (Serpiente)
         // ============================
         // TRAMPA: Recorrer una matriz: fila 1 izq->der, fila 2 der->izq.
-        int[][] m2 = { { 1, 2, 3 }, { 4, 5, 6 }, { 7, 8, 9 } };
+        int[][] m2 = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
         for (int i = 0; i < m2.length; i++) {
             if (i % 2 == 0) { // Fila par: Normal
-                for (int j = 0; j < m2[i].length; j++)
+                for (int j = 0; j < m2[i].length; j++) {
                     System.out.print(m2[i][j] + " ");
+                }
             } else { // Fila impar: Al revés
-                for (int j = m2[i].length - 1; j >= 0; j--)
+                for (int j = m2[i].length - 1; j >= 0; j--) {
                     System.out.print(m2[i][j] + " ");
+                }
             }
         }
 
@@ -353,16 +379,14 @@ public class SetMapyMas {
         // SOLUCIÓN:
         // int n = Integer.parseInt(sc.nextLine()); // Leer todo como línea y convertir.
         // Mucho más seguro.
-
         // ============================
         // 20. MÉTODOS DE ORDENACIÓN (Sorting)
         // ============================
-
         // TRAMPA 1: El método Burbuja (Bubble Sort) - El más básico
         // Es ineficiente (O(n²)) pero muy común en exámenes.
         // ¡OJO! No olvides el "-1" en el límite del bucle 'j' para no salirte del array
         // al comparar con j+1.
-        int[] paraBurbuja = { 5, 2, 8, 1, 9 };
+        int[] paraBurbuja = {5, 2, 8, 1, 9};
         for (int i = 0; i < paraBurbuja.length - 1; i++) {
             for (int j = 0; j < paraBurbuja.length - 1 - i; j++) {
                 if (paraBurbuja[j] > paraBurbuja[j + 1]) {
@@ -389,21 +413,19 @@ public class SetMapyMas {
         // uno.
         // SOLUCIÓN: Si necesitas mantener la relación, usa un Map antes de ordenar o
         // crea una clase que guarde ambos datos.
-
         // TRAMPA 4: Arrays.sort() con tipos primitivos vs Objetos
-        int[] arrP = { 3, 1, 2 };
+        int[] arrP = {3, 1, 2};
         Arrays.sort(arrP); // Funciona directo.
 
         // Pero si quieres orden descendente con Arrays.sort, el array DEBE SER de
         // Objetos (Integer[]).
-        Integer[] arrO = { 3, 1, 2 };
+        Integer[] arrO = {3, 1, 2};
         Arrays.sort(arrO, (x, y) -> y - x); // Solo funciona con Integer[], no con int[].
 
         // TRAMPA 5: La estabilidad del orden
         // Si ordenas por "Apellido" y luego por "Nombre", asegúrate de que el método
         // sea "estable" para que no desordene los apellidos al organizar los nombres.
         // (Arrays.sort para objetos y Collections.sort son ESTABLES).
-
         // ============================
         // 21. RESUMEN RÁPIDO "MÉTODO SORT"
         // ============================
@@ -415,7 +437,6 @@ public class SetMapyMas {
          * 4. ¡IMPORTANTE!: Ordenar SIEMPRE invalida cualquier búsqueda binaria previa.
          * Primero se ordena, LUEGO se busca.
          */
-
         // ============================
         // 22. RECURSIVIDAD (El clásico)
         // ============================
@@ -423,7 +444,6 @@ public class SetMapyMas {
         // StackOverflowError.
         // Siempre debe haber una condición que detenga las llamadas.
         // Ejemplo: factorial(5) -> 5 * 4 * 3 * 2 * 1
-
         // (Nota: Esto iría como método fuera del main, pero aquí tienes la lógica)
         /*
          * public static int factorial(int n) {
@@ -431,7 +451,6 @@ public class SetMapyMas {
          * return n * factorial(n - 1);
          * }
          */
-
         // ============================
         // 23. TRATAMIENTO DE EXCEPCIONES (Try-Catch)
         // ============================
@@ -462,9 +481,9 @@ public class SetMapyMas {
         // 25. DIAGONALES EN MATRICES (Geometría)
         // ============================
         int[][] mExamen = {
-                { 1, 2, 3 },
-                { 4, 5, 6 },
-                { 7, 8, 9 }
+            {1, 2, 3},
+            {4, 5, 6},
+            {7, 8, 9}
         };
 
         for (int i = 0; i < mExamen.length; i++) {
@@ -493,19 +512,16 @@ public class SetMapyMas {
          * - Cero: Si son IGUALES.
          * - Positivo: Si ObjetoA va DESPUÉS que ObjetoB.
          */
-
         // TRUCO EXAMEN: La "Resta Mágica" para números
         // Si quieres ordenar por una variable 'id' (int):
         // public int compareTo(Alumno otro) {
         // return this.id - otro.id; <-- Si da negativo, 'this' es menor.
         // }
-
         // TRAMPA: Ordenar por Strings (Nombres)
         // No restes Strings. Los Strings ya tienen su propio compareTo:
         // public int compareTo(Alumno otro) {
         // return this.nombre.compareTo(otro.nombre);
         // }
-
         // TRAMPA: Orden Inverso
         // Si quieres que el mayor aparezca primero, simplemente dales la vuelta:
         // return otro.id - this.id;
@@ -535,11 +551,9 @@ public class SetMapyMas {
          * }
          * }
          */
-
         // USO EN EL EXAMEN:
         // List<Alumno> clase = new ArrayList<>();
         // ... (añadir alumnos)
-
         // Gracias al compareTo, ahora puedes hacer esto:
         // Collections.sort(clase);
         // ¡Y Java ya sabe que debe usar el ID (o lo que hayas puesto)!

@@ -4,62 +4,717 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Iterator;
+import java.util.InputMismatchException;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.Set;
+import java.util.Iterator;
 
+
+        
+
+
+/*
+1- MATRICES (Arrays Bidimensionales)
+2- LISTAS (ArrayList y métodos clave)
+3- SETS (HashSet / TreeSet y duplicados)
+4- MAPS (HashMap: Clave -> Valor)
+5- ITERATOR (Borrado seguro de elementos)
+6- BÚSQUEDA BINARIA (Divide y vencerás)
+7- CONSEJOS EXTRA (Strings, Null y Sort)
+8- TRAMPAS MATRICES (Efecto espejo e irregulares)
+9- TRAMPAS LISTAS/SETS (Borrado fantasma y equals)
+10- TRAMPAS BINARY SEARCH (Bucle infinito)
+11- TRAMPAS CASTING (División entera y Wrappers)
+12- TRAMPAS MAPS (Null y containsKey)
+13- MATRICES PRO (Algoritmo de vecinos/Buscaminas)
+14- LISTAS PRO (Eliminar duplicados con orden)
+15- MAPS PRO (Frecuencia de elementos)
+16- ITERATOR PRO (Filtrado condicional doble)
+17- BINARY SEARCH PRO (Punto de corte / First Greater)
+18- MATRICES ZIG-ZAG (Recorrido de serpiente)
+19- TRUCOS SCANNER (Limpieza de buffer y nextLine)
+20- MÉTODOS DE ORDENACIÓN (Burbuja y Lambdas)
+21- RESUMEN SORT (Arrays vs Collections)
+22- RECURSIVIDAD (Caso base y paso recursivo)
+23- EXCEPCIONES (Try-Catch y NumberFormatException)
+24- STRINGBUILDER (Eficiencia en concatenación)
+25- DIAGONALES (Cálculo de principal y secundaria)
+26- COMPARE TO (Interfaz Comparable y resta mágica)
+27- MULTIMAPS (Mapas con listas como valor)
+28- CONVERSIONES CRÍTICAS (List <-> Set <-> Map)
+29- BÚSQUEDA EN SETS (Uso correcto de objetos temporales)
+30- TIPOS DE MAPS (Hash vs Tree vs Linked)
+ */
+
+ /*
+Alt + Insert: Es el atajo rey. Úsalo para generar automáticamente el Constructor, Getters, Setters, equals() y hashCode().
+
+Ctrl + Espacio: Autocompletado (el IntelliSense de NetBeans).
+
+Alt + Shift + F: Formatear el código (el "Prettier" de NetBeans).
+
+sout + Tab: Escribe automáticamente System.out.println("");.
+
+psvm + Tab: Escribe el método public static void main....
+
+Ctrl + Shift + C: Comentar/Descomentar líneas.
+
+Importar todo lo que falte Ctrl + Shift + I
+ */
+
+ /*
+Usa Ctrl + Shift + I (Fix Imports). NetBeans analizará todo el archivo y
+añadirá todos los import java.util... que falten de golpe.
+ */
 public class SetMapyMas {
+
     public static void main(String[] args) {
-        // Ejemplo mínimo funcional para Set, Map, List e Iterator.
-        Set<Integer> miSet = new HashSet<>();
-        miSet.add(10);
-        miSet.add(10);
-        miSet.add(5);
-        System.out.println("miSet = " + miSet);
+      
 
-        Map<String, Integer> inventario = new HashMap<>();
-        inventario.put("Manzanas", 50);
-        inventario.put("Peras", 30);
-        inventario.put("Manzanas", 100);
+        // ============================
+        // 1. MATRICES (Arrays Bidimensionales)
+        // ============================
+        // Una matriz es un array de arrays. Ojo: matriz[fila][columna]
+        int[][] matriz = {
+            {1, 2, 3},
+            {4, 5, 6},
+            {7, 8, 9}
+        };
 
-        for (Map.Entry<String, Integer> entry : inventario.entrySet()) {
-            System.out.println(entry.getKey() + " -> " + entry.getValue());
+        // TRUCO EXAMEN: Recorrer buscando vecinos sin salirse (Out of Bounds)
+        int target = 5;
+        for (int i = 0; i < matriz.length; i++) {
+            for (int j = 0; j < matriz[i].length; j++) {
+                if (matriz[i][j] == target) {
+                    System.out.println("Encontrado en: " + i + "," + j);
+
+                    // CONTROL DE BORDES: Comprobar si existe arriba, abajo, izq, der
+                    if (i > 0) {
+                        System.out.println("Arriba: " + matriz[i - 1][j]);
+                    }
+                    if (i < matriz.length - 1) {
+                        System.out.println("Abajo: " + matriz[i + 1][j]);
+                    }
+                    if (j > 0) {
+                        System.out.println("Izquierda: " + matriz[i][j - 1]);
+                    }
+                    if (j < matriz[i].length - 1) {
+                        System.out.println("Derecha: " + matriz[i][j + 1]);
+                    }
+                }
+            }
         }
 
+        // ============================
+        // 2. LISTAS (ArrayList)
+        // ============================
+        // Dinámicas, pueden cambiar de tamaño. Solo guardan OBJETOS (Integer, no int).
         List<String> lista = new ArrayList<>();
         lista.add("Java");
         lista.add("Python");
-        lista.add(1, "C++");
+        lista.add(1, "C++"); // Inserta en la posición 1, desplaza el resto
 
+        // Metodos clave: size(), get(index), remove(index o objeto), contains(objeto)
+        if (lista.contains("Java")) {
+            System.out.println("La lista tiene Java en la posición: " + lista.indexOf("Java"));
+        }
+
+        // ============================
+        // 3. SETS (HashSet / TreeSet)
+        // ============================
+        // ¡NO PERMITEN DUPLICADOS! Útiles para limpiar datos.
+        // HashSet: Rápido, no mantiene orden.
+        // TreeSet: Mantiene orden natural (alfabético o numérico).
+        Set<Integer> miSet = new HashSet<>();
+        miSet.add(10);
+        miSet.add(10); // Esto se ignora, no da error pero no se añade.
+        miSet.add(5);
+
+        System.out.println("Tamaño del set: " + miSet.size()); // Imprimirá 2
+
+        // ============================
+        // 4. MAPS (HashMap)
+        // ============================
+        // Pareja Clave -> Valor. Las claves son únicas.
+        Map<String, Integer> inventario = new HashMap<>();
+        inventario.put("Manzanas", 50);
+        inventario.put("Peras", 30);
+
+        // Si usas put con una clave que ya existe, SOBREESCRIBE el valor.
+        inventario.put("Manzanas", 100);
+
+        // Recorrer un Map (Típico de examen):
+        for (Map.Entry<String, Integer> entrada : inventario.entrySet()) {
+            System.out.println("Producto: " + entrada.getKey() + " | Cantidad: " + entrada.getValue());
+        }
+
+        // ============================
+        // 5. ITERATOR
+        // ============================
+        // La forma segura de borrar elementos mientras recorres una colección.
+        // Si usas un for-each normal y haces .remove(), el programa explota
+        // (ConcurrentModificationException).
         Iterator<String> it = lista.iterator();
         while (it.hasNext()) {
             String lenguaje = it.next();
-            if ("Python".equals(lenguaje)) {
-                it.remove();
+            if (lenguaje.equals("Python")) {
+                it.remove(); // Borrado seguro
             }
         }
-        System.out.println("lista final = " + lista);
 
-        // Ejemplos de hash set y linked hash set para eliminar duplicados manteniendo orden.
-        List<String> sucia = new ArrayList<>(Arrays.asList("A", "B", "A", "C", "B"));
-        List<String> limpia = new ArrayList<>(new LinkedHashSet<>(sucia));
-        System.out.println("sucia = " + sucia);
-        System.out.println("limpia = " + limpia);
+        // ============================
+        // 6. BÚSQUEDA BINARIA (Divide y vencerás)
+        // ============================
+        // REQUISITO: El array DEBE ESTAR ORDENADO.
+        // Es mucho más rápida que la lineal en arrays grandes.
+        int[] nums = {10, 20, 30, 40, 50, 60, 70};
+        int buscar = 60;
+        int inicio = 0;
+        int fin = nums.length - 1;
+        int posicion = -1;
 
-        // Ejemplo con scanner y manejo de excepción
-        Scanner sc = new Scanner(System.in);
-        try {
-            System.out.print("Introduce un número (o texto): ");
-            String input = sc.nextLine();
-            int n = Integer.parseInt(input);
-            System.out.println("Número leído = " + n);
-        } catch (NumberFormatException e) {
-            System.out.println("No es un número válido.");
+        while (inicio <= fin) {
+            int medio = inicio + (fin - inicio) / 2; // Evita desbordamiento de memoria
+
+            if (nums[medio] == buscar) {
+                posicion = medio;
+                break;
+            } else if (nums[medio] < buscar) {
+                inicio = medio + 1; // Buscar en la mitad derecha
+            } else {
+                fin = medio - 1; // Buscar en la mitad izquierda
+            }
         }
 
-        sc.close();
+        // Atajo de Java para búsqueda binaria (si no te obligan a programarla):
+        // int pos = Arrays.binarySearch(nums, buscar);
+        // ============================
+        // 7. CONSEJOS EXTRA (Trampas comunes)
+        // ============================
+        /*
+         * 1. Comparar Strings: NUNCA uses ==. Usa siempre: cadena1.equals(cadena2)
+         * 2. Cuidado con null: Antes de hacer un .size() o .equals(), asegúrate de que
+         * el objeto no sea null.
+         * 3. Matrices irregulares: matriz[i].length puede variar en cada fila. No
+         * asumas que todas miden lo mismo.
+         * 4. Sort: Para ordenar una lista: Collections.sort(lista); Para un array:
+         * Arrays.sort(array);
+         */
+        // ============================
+        // 8. TRAMPAS CON MATRICES (Recorridos complejos)
+        // ============================
+        // TRAMPA 1: El "Efecto Espejo" o Transposición
+        // A veces te piden intercambiar filas por columnas.
+        // OJO: Si recorres la matriz entera e intercambias [i][j] con [j][i],
+        // ¡lo acabarás intercambiando DOS VECES y se quedará igual!
+        int[][] m = {{1, 2}, {3, 4}};
+        for (int i = 0; i < m.length; i++) {
+            for (int j = i + 1; j < m[i].length; j++) { // J empieza en I + 1 (Triángulo superior)
+                int temp = m[i][j];
+                m[i][j] = m[j][i];
+                m[j][i] = temp;
+            }
+        }
+
+        // TRAMPA 2: La Matriz "Irregular" (Jagged Array)
+        // No todas las filas tienen que medir lo mismo. Si usas matriz[0].length para
+        // todo, petará.
+        int[][] irregular = {{1, 2, 3}, {4, 5}, {6}};
+        for (int i = 0; i < irregular.length; i++) {
+            // SIEMPRE usa irregular[i].length, nunca un número fijo o la longitud de la
+            // fila 0.
+            for (int j = 0; j < irregular[i].length; j++) {
+                // código...
+            }
+        }
+
+        // ============================
+        // 9. TRAMPAS CON LISTAS Y SETS
+        // ============================
+        // TRAMPA 3: El borrado fantasma en ArrayList
+        // Si borras elementos con un for normal (i++), al borrar el elemento 2,
+        // el que era el 3 pasa a ser el 2, el bucle salta al 3 y ¡TE SALTAS UNO SIN
+        // REVISAR!
+        List<Integer> numeros = new ArrayList<>(Arrays.asList(1, 2, 2, 3));
+        for (int i = 0; i < numeros.size(); i++) {
+            if (numeros.get(i) == 2) {
+                numeros.remove(i);
+                i--; // SOLUCIÓN: Decrementar la i para no saltarse el siguiente elemento
+            }
+        }
+
+        // TRAMPA 4: Objetos personalizados en Sets/Maps
+        // Si creas una clase "Alumno" y no programas los métodos equals() y hashCode(),
+        // el Set dejará meter dos alumnos con el mismo DNI porque "son objetos
+        // distintos en memoria".
+        // REGLA: Si usas Set con objetos propios, necesitas generar Equals/HashCode.
+        // ============================
+        // 10. TRAMPAS DE BÚSQUEDA BINARIA
+        // ============================
+        // TRAMPA 5: El "Bucle Infinito" en Búsqueda Binaria
+        // Si olvidas el "+1" o "-1" al mover los límites, el bucle puede no terminar
+        // nunca.
+        // inicio = medio; <-- MAL (Bucle infinito si inicio y fin están pegados)
+        // inicio = medio + 1; <-- BIEN
+        // TRAMPA 6: El elemento no existe
+        // Si el examen pide "insertar si no existe", recuerda que binarySearch de Java
+        // devuelve un número negativo si no lo encuentra. No devuelve -1
+        // necesariamente.
+        // ============================
+        // 11. TRAMPAS DE TIPOS DE DATOS (Casting)
+        // ============================
+        // TRAMPA 7: La división entera
+        // Si buscas la media de una lista de notas:
+        int suma = 15;
+        int cantidad = 2;
+        double media = suma / cantidad; // Resultado: 7.0 (¡Error! Pierdes los decimales antes de guardar)
+        double mediaCorrecta = (double) suma / cantidad; // Resultado: 7.5
+
+        // TRAMPA 8: Comparar Strings de entrada (Scanner)
+        // Si lees un String de consola con .next() y el usuario pone "Hola Mundo",
+        // .next() solo pillará "Hola". Usa .nextLine() para pillar la frase completa.
+        // TRAMPA 9: El "===" en Objetos Wrapper
+        Integer a = 120;
+        Integer b = 120;
+        Integer c = 200;
+        Integer d = 200;
+        // a == b es TRUE (Java cachea números pequeños)
+        // c == d es FALSE (Son objetos distintos)
+        // CONCLUSIÓN: Usa siempre .equals() para Integer, Double, String, etc.
+
+        // ============================
+        // 12. MAPS: El "null" y "containsKey"
+        // ============================
+        // TRAMPA 10: Intentar obtener algo que no existe
+        Map<String, String> dicc = new HashMap<>();
+        // String valor = dicc.get("clave").toLowerCase(); // ERROR:
+        // NullPointerException si la clave no existe.
+        if (dicc.containsKey("clave")) {
+            // Ahora es seguro
+        }
+        // ============================
+        // 13. MATRICES: EL "BUSCAMINAS" (Control Total)
+        // ============================
+        // TRAMPA: Te piden sumar los vecinos de una celda, pero la celda está en una
+        // esquina.
+        int[][] tablero = {
+            {1, 0, 1},
+            {0, 1, 0},
+            {1, 1, 1}
+        };
+        int fila = 0, col = 0; // Esquina superior izquierda
+        int sumaVecinos = 0;
+
+        // LA FORMA "PRO" (Evita 8 IFs manuales):
+        // Usamos dos bucles que recorren de -1 a +1 relativo a la posición
+        for (int i = -1; i <= 1; i++) {
+            for (int j = -1; j <= 1; j++) {
+                int nFila = fila + i;
+                int nCol = col + j;
+
+                // TRAMPA: No sumarte a ti mismo y no salirte del array
+                if (nFila >= 0 && nFila < tablero.length && nCol >= 0 && nCol < tablero[0].length) {
+                    if (!(i == 0 && j == 0)) { // Si no es la celda origen
+                        sumaVecinos += tablero[nFila][nCol];
+                    }
+                }
+            }
+        }
+        // ============================
+        // 14. LISTAS: ELIMINAR DUPLICADOS (Sin perder el orden)
+        // ============================
+        // TRAMPA: Si pasas una Lista a un HashSet, se borran los duplicados pero SE
+        // PIERDE EL ORDEN.
+        // Si el examen pide mantener el orden original:
+        List<String> sucia = new ArrayList<>(Arrays.asList("A", "B", "A", "C", "B"));
+
+        // SOLUCIÓN: LinkedHashSet (Mantiene orden de inserción y no permite duplicados)
+        Set<String> limpia = new LinkedHashSet<>(sucia);
+        sucia = new ArrayList<>(limpia);
+
+        // ============================
+        // 15. MAPS: FRECUENCIA DE ELEMENTOS
+        // ============================
+        // TRAMPA: "Dime cuántas veces aparece cada palabra en este array".
+        String[] palabras = {"java", "python", "java", "c++", "java"};
+        Map<String, Integer> contador = new HashMap<>();
+
+        for (String p : palabras) {
+            // Forma elegante (getOrDefault evita el IF de "si no existe, pon 0")
+            contador.put(p, contador.getOrDefault(p, 0) + 1);
+        }
+
+        // ============================
+        // 16. ITERATOR: FILTRADO DOBLE
+        // ============================
+        // TRAMPA: "Borra los números pares de la lista pero solo si son mayores que
+        // 10".
+        List<Integer> datos = new ArrayList<>(Arrays.asList(2, 12, 5, 20, 8));
+        Iterator<Integer> iter = datos.iterator();
+        while (iter.hasNext()) {
+            int n = iter.next();
+            if (n % 2 == 0 && n > 10) {
+                iter.remove();
+            }
+        }
+
+        // ============================
+        // 17. BÚSQUEDA BINARIA: EL "PUNTO DE CORTE"
+        // ============================
+        // TRAMPA: No buscas un número, buscas el primer número mayor que X.
+        int[] ordenados = {10, 20, 30, 40, 50};
+        int limite = 25;
+        int res = -1;
+        int ini = 0, f = ordenados.length - 1;
+
+        while (ini <= f) {
+            int z = ini + (f - ini) / 2;
+            if (ordenados[z] > limite) {
+                res = ordenados[z]; // Guardamos el candidato
+                f = z - 1; // Seguimos buscando a la izquierda por si hay uno más pequeño que también sea >
+                // 25
+            } else {
+                ini = z + 1;
+            }
+        }
+
+        // ============================
+        // 18. RECORRIDO EN ZIG-ZAG (Serpiente)
+        // ============================
+        // TRAMPA: Recorrer una matriz: fila 1 izq->der, fila 2 der->izq.
+        int[][] m2 = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
+        for (int i = 0; i < m2.length; i++) {
+            if (i % 2 == 0) { // Fila par: Normal
+                for (int j = 0; j < m2[i].length; j++) {
+                    System.out.print(m2[i][j] + " ");
+                }
+            } else { // Fila impar: Al revés
+                for (int j = m2[i].length - 1; j >= 0; j--) {
+                    System.out.print(m2[i][j] + " ");
+                }
+            }
+        }
+
+        // ============================
+        // 19. TRUCOS FINALES DE SCANNER
+        // ============================
+        // TRAMPA: Leer números y luego un String.
+        // int n = sc.nextInt();
+        // String s = sc.nextLine(); // <-- ¡ESTO SE QUEDA VACÍO! Se come el "Enter" del
+        // número.
+        // SOLUCIÓN:
+        // int n = Integer.parseInt(sc.nextLine()); // Leer todo como línea y convertir.
+        // Mucho más seguro.
+        // ============================
+        // 20. MÉTODOS DE ORDENACIÓN (Sorting)
+        // ============================
+        // TRAMPA 1: El método Burbuja (Bubble Sort) - El más básico
+        // Es ineficiente (O(n²)) pero muy común en exámenes.
+        // ¡OJO! No olvides el "-1" en el límite del bucle 'j' para no salirte del array
+        // al comparar con j+1.
+        int[] paraBurbuja = {5, 2, 8, 1, 9};
+        for (int i = 0; i < paraBurbuja.length - 1; i++) {
+            for (int j = 0; j < paraBurbuja.length - 1 - i; j++) {
+                if (paraBurbuja[j] > paraBurbuja[j + 1]) {
+                    // Intercambio (Swap)
+                    int temp = paraBurbuja[j];
+                    paraBurbuja[j] = paraBurbuja[j + 1];
+                    paraBurbuja[j + 1] = temp;
+                }
+            }
+        }
+
+        // TRAMPA 2: Ordenar Objetos Personalizados (Comparator vs Comparable)
+        // Si tienes una lista de objetos "Coche", Collections.sort() no sabrá si
+        // ordenar por precio, marca o año.
+        // TRUCO EXAMEN: Usa una expresión Lambda (Java 8+) para no tener que crear
+        // clases extra.
+        List<String> nombres = new ArrayList<>(Arrays.asList("Ana", "Zacarias", "Beto"));
+
+        // Ordenar de mayor a menor (Inverso):
+        nombres.sort((a2, b2) -> b2.compareTo(a2));
+
+        // TRAMPA 3: Ordenar y perder el índice original
+        // Si ordenas un array de precios, ya no sabrás a qué producto pertenecía cada
+        // uno.
+        // SOLUCIÓN: Si necesitas mantener la relación, usa un Map antes de ordenar o
+        // crea una clase que guarde ambos datos.
+        // TRAMPA 4: Arrays.sort() con tipos primitivos vs Objetos
+        int[] arrP = {3, 1, 2};
+        Arrays.sort(arrP); // Funciona directo.
+
+        // Pero si quieres orden descendente con Arrays.sort, el array DEBE SER de
+        // Objetos (Integer[]).
+        Integer[] arrO = {3, 1, 2};
+        Arrays.sort(arrO, (x, y) -> y - x); // Solo funciona con Integer[], no con int[].
+
+        // TRAMPA 5: La estabilidad del orden
+        // Si ordenas por "Apellido" y luego por "Nombre", asegúrate de que el método
+        // sea "estable" para que no desordene los apellidos al organizar los nombres.
+        // (Arrays.sort para objetos y Collections.sort son ESTABLES).
+        // ============================
+        // 21. RESUMEN RÁPIDO "MÉTODO SORT"
+        // ============================
+        /*
+         * 1. Arrays de primitivos: Arrays.sort(miArray);
+         * 2. Listas: Collections.sort(miLista); o miLista.sort(null);
+         * 3. Orden Personalizado: lista.sort((o1, o2) -> o1.getValor() -
+         * o2.getValor());
+         * 4. ¡IMPORTANTE!: Ordenar SIEMPRE invalida cualquier búsqueda binaria previa.
+         * Primero se ordena, LUEGO se busca.
+         */
+        // ============================
+        // 22. RECURSIVIDAD (El clásico)
+        // ============================
+        // TRAMPA: Olvidar el "Caso Base". Sin él, el programa lanza un
+        // StackOverflowError.
+        // Siempre debe haber una condición que detenga las llamadas.
+        // Ejemplo: factorial(5) -> 5 * 4 * 3 * 2 * 1
+        // (Nota: Esto iría como método fuera del main, pero aquí tienes la lógica)
+        /*
+         * public static int factorial(int n) {
+         * if (n <= 1) return 1; // CASO BASE: Si no está, el bucle es infinito
+         * return n * factorial(n - 1);
+         * }
+         */
+        // ============================
+        // 23. TRATAMIENTO DE EXCEPCIONES (Try-Catch)
+        // ============================
+        // TRAMPA: El programa peta si el usuario mete una letra cuando pides un número.
+        try {
+            String entrada = "123a";
+            int numero = Integer.parseInt(entrada); // Aquí saltará el error
+        } catch (NumberFormatException e) {
+            System.out.println("TRAMPA EVITADA: No se puede convertir una letra en número");
+        } finally {
+            // Este bloque se ejecuta SIEMPRE, haya error o no.
+            // Útil para cerrar Scanners o conexiones.
+        }
+
+        // ============================
+        // 24. EFICIENCIA CON STRINGBUILDER
+        // ============================
+        // TRAMPA: Concatenar Strings con "+" dentro de un bucle muy largo.
+        // Como los Strings son inmutables, Java crea un objeto nuevo en cada vuelta. Es
+        // LENTO.
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < 5; i++) {
+            sb.append("Dato").append(i).append(" "); // Mucho más rápido y eficiente
+        }
+        String resultadoFinal = sb.toString();
+
+        // ============================
+        // 25. DIAGONALES EN MATRICES (Geometría)
+        // ============================
+        int[][] mExamen = {
+            {1, 2, 3},
+            {4, 5, 6},
+            {7, 8, 9}
+        };
+
+        for (int i = 0; i < mExamen.length; i++) {
+            for (int j = 0; j < mExamen[i].length; j++) {
+                // TRAMPA: Diagonal Principal (1, 5, 9)
+                if (i == j) {
+                    // Es elemento de la diagonal principal
+                }
+                // TRAMPA: Diagonal Secundaria (3, 5, 7)
+                if (i + j == mExamen.length - 1) {
+                    // Es elemento de la diagonal secundaria
+                }
+            }
+        }
+
+        // ============================
+        // 26. EL MÉTODO compareTo (Interfaz Comparable)
+        // ============================
+        // TRAMPA: Si intentas ordenar una lista de "Objetos Propios", Java no sabe
+        // si quieres ordenar por ID, por Nombre o por Nota.
+
+        /*
+         * LOGICA DEL compareTo:
+         * ObjetoA.compareTo(ObjetoB) devuelve un int:
+         * - Negativo: Si ObjetoA va ANTES que ObjetoB.
+         * - Cero: Si son IGUALES.
+         * - Positivo: Si ObjetoA va DESPUÉS que ObjetoB.
+         */
+        // TRUCO EXAMEN: La "Resta Mágica" para números
+        // Si quieres ordenar por una variable 'id' (int):
+        // public int compareTo(Alumno otro) {
+        // return this.id - otro.id; <-- Si da negativo, 'this' es menor.
+        // }
+        // TRAMPA: Ordenar por Strings (Nombres)
+        // No restes Strings. Los Strings ya tienen su propio compareTo:
+        // public int compareTo(Alumno otro) {
+        // return this.nombre.compareTo(otro.nombre);
+        // }
+        // TRAMPA: Orden Inverso
+        // Si quieres que el mayor aparezca primero, simplemente dales la vuelta:
+        // return otro.id - this.id;
+
+        /*
+         * Imagina que tienes esta clase fuera del main:
+
+         * 
+
+         *
+
+         * class Alumno implements Comparable<Alumno> {
+         * int id;
+         * String nombre;
+         * double nota;
+
+         * 
+         * // EL MÉTODO CLAVE:
+         * 
+
+         *
+         * // EL MÉTODO CLAVE:
+         *
+
+         * @Override
+         * public int compareTo(Alumno otro) {
+         * // Ejemplo A: Ordenar por ID (Ascendente)
+         * return this.id - otro.id;
+
+         * 
+         * // Ejemplo B: Ordenar por Nombre (Alfabético)
+         * // return this.nombre.compareTo(otro.nombre);
+         * 
+
+         *
+         * // Ejemplo B: Ordenar por Nombre (Alfabético)
+         * // return this.nombre.compareTo(otro.nombre);
+         *
+
+         * // Ejemplo C: Ordenar por Nota (De mayor a menor)
+         * // if (this.nota < otro.nota) return 1;
+         * // if (this.nota > otro.nota) return -1;
+         * // return 0;
+         * }
+         * }
+         */
+        // USO EN EL EXAMEN:
+        // List<Alumno> clase = new ArrayList<>();
+        // ... (añadir alumnos)
+        // Gracias al compareTo, ahora puedes hacer esto:
+        // Collections.sort(clase);
+        // ¡Y Java ya sabe que debe usar el ID (o lo que hayas puesto)!
+        // ============================
+        // 22. RECURSIVIDAD (Lógica de examen)
+        // ============================
+        // TRAMPA: Olvidar el "Caso Base". Sin él, lanzará StackOverflowError.
+        // Ejemplo típico: Factorial o Fibonacci.
+        /*
+        public static int factorial(int n) {
+            if (n <= 1) return 1; // CASO BASE: Evita el bucle infinito
+            return n * factorial(n - 1);
+        }
+         */
+        // ============================
+        // 27. TRATAMIENTO DE EXCEPCIONES (Try-Catch)
+        // ============================
+        // TRAMPA: El programa explota si el usuario mete letras en un sc.nextInt().
+        // SIEMPRE usa sc.nextLine() en el catch para limpiar el buffer.
+        Scanner sc = new Scanner(System.in);
+        try {
+            System.out.println("Introduce un número:");
+            int n = Integer.parseInt(sc.nextLine());
+        } catch (NumberFormatException | InputMismatchException e) {
+            System.out.println("Error: No es un número válido.");
+            // sc.nextLine(); // Limpiar buffer si usas nextInt()
+        }
+
+        // ============================
+        // 28. EFICIENCIA CON STRINGBUILDER
+        // ============================
+        // TRAMPA: Concatenar Strings con "+" en bucles largos (crea miles de objetos).
+        // Úsalo para generar tickets, listas de lotería o informes.
+        StringBuilder aaa = new StringBuilder();
+        for (int i = 0; i < 10; i++) {
+            sb.append("Línea ").append(i).append("\n");
+        }
+        String resultado = sb.toString();
+
+        // ============================
+        // 29. DIAGONALES EN MATRICES
+        // ============================
+        int[][] mEx = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
+        for (int i = 0; i < mEx.length; i++) {
+            for (int j = 0; j < mEx[i].length; j++) {
+                if (i == j) {
+                    /* Diagonal Principal */ }
+                if (i + j == mEx.length - 1) {
+                    /* Diagonal Secundaria */ }
+            }
+        }
+
+        // ============================
+        // 30. EL MÉTODO compareTo (Criterios de Orden)
+        // ============================
+        // TRAMPA 1: Restar doubles. No hagas (int)(d1 - d2). Usa Double.compare.
+        // TRAMPA 2: Ordenar por dos criterios (Apellido y si coinciden, Nombre).
+        /*
+        @Override
+        public int compareTo(Persona o) {
+            int res = this.apellidos.compareToIgnoreCase(o.apellidos);
+            if (res == 0) { // Si son iguales, desempata por nombre
+                return this.nombre.compareToIgnoreCase(o.nombre);
+            }
+            return res;
+        }
+         */
+        // ============================
+        // 31. MULTIMAPS (Una clave -> Varios valores)
+        // ============================
+        // TRAMPA: Si usas map.put(key, valor), sobrescribes el anterior.
+        // Si quieres guardar todas las traducciones de una palabra o todas las vacas de un establo:
+        Map<String, List<String>> multiMap = new HashMap<>();
+        String key = "Dog";
+        multiMap.putIfAbsent(key, new ArrayList<>()); // Crea la lista si no existe
+        multiMap.get(key).add("Perro");
+        multiMap.get(key).add("Can");
+
+        // ============================
+        // 32. CONVERSIONES CRÍTICAS (Chuleta rápida)
+        // ============================
+        /*
+         * 1. List a Set (Quitar duplicados):
+         * Set<Persona> miSet = new HashSet<>(miLista);
+         *
+         * 2. Set a List (Para ordenar o get(i)):
+         * List<Persona> miLista = new ArrayList<>(miSet);
+         *
+         * 3. Map a List de Valores:
+         * List<Persona> lista = new ArrayList<>(miMap.values());
+         *
+         * 4. Map a Stream (Conversión Pro):
+         * Map<String, Persona> mapa = lista.stream()
+         * .collect(Collectors.toMap(Persona::getNif, Function.identity()));
+         */
+        // ============================
+        // 33. BÚSQUEDA EN SETS (El error de Vaqueria)
+        // ============================
+        // TRAMPA: setVacas.contains(5) devolverá FALSE aunque una vaca tenga ID 5.
+        // DEBES pasar un objeto del mismo tipo que el Set.
+        /*
+        public static boolean existeVaca(Set<Vaca> conjunto, int idBuscado) {
+            // Mal: return conjunto.contains(idBuscado);
+            // Bien: Crear una vaca temporal con ese ID para que .equals() la encuentre
+            return conjunto.contains(new Vaca(idBuscado, null, ""));
+        }
+         */
+        // ============================
+        // 34. TIPOS DE MAPS (¿Cuál elegir?)
+        // ============================
+        /*
+         * - HashMap: El más rápido. Sin orden. (Uso general).
+         * - TreeMap: Ordenado por la CLAVE (Alfabético/Numérico). Lento.
+         * - LinkedHashMap: Mantiene el ORDEN DE INSERCIÓN. (Útil para menús o historial).
+         */
+
     }
 }

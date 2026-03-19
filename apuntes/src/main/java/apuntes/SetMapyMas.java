@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
+<<<<<<< HEAD
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
@@ -44,6 +45,73 @@ public class SetMapyMas {
         
         
         
+=======
+import java.util.InputMismatchException;
+import java.util.Iterator;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Scanner;
+import java.util.Set;
+
+/*
+1- MATRICES (Arrays Bidimensionales)
+2- LISTAS (ArrayList y métodos clave)
+3- SETS (HashSet / TreeSet y duplicados)
+4- MAPS (HashMap: Clave -> Valor)
+5- ITERATOR (Borrado seguro de elementos)
+6- BÚSQUEDA BINARIA (Divide y vencerás)
+7- CONSEJOS EXTRA (Strings, Null y Sort)
+8- TRAMPAS MATRICES (Efecto espejo e irregulares)
+9- TRAMPAS LISTAS/SETS (Borrado fantasma y equals)
+10- TRAMPAS BINARY SEARCH (Bucle infinito)
+11- TRAMPAS CASTING (División entera y Wrappers)
+12- TRAMPAS MAPS (Null y containsKey)
+13- MATRICES PRO (Algoritmo de vecinos/Buscaminas)
+14- LISTAS PRO (Eliminar duplicados con orden)
+15- MAPS PRO (Frecuencia de elementos)
+16- ITERATOR PRO (Filtrado condicional doble)
+17- BINARY SEARCH PRO (Punto de corte / First Greater)
+18- MATRICES ZIG-ZAG (Recorrido de serpiente)
+19- TRUCOS SCANNER (Limpieza de buffer y nextLine)
+20- MÉTODOS DE ORDENACIÓN (Burbuja y Lambdas)
+21- RESUMEN SORT (Arrays vs Collections)
+22- RECURSIVIDAD (Caso base y paso recursivo)
+23- EXCEPCIONES (Try-Catch y NumberFormatException)
+24- STRINGBUILDER (Eficiencia en concatenación)
+25- DIAGONALES (Cálculo de principal y secundaria)
+26- COMPARE TO (Interfaz Comparable y resta mágica)
+27- MULTIMAPS (Mapas con listas como valor)
+28- CONVERSIONES CRÍTICAS (List <-> Set <-> Map)
+29- BÚSQUEDA EN SETS (Uso correcto de objetos temporales)
+30- TIPOS DE MAPS (Hash vs Tree vs Linked)
+ */
+
+ /*
+Alt + Insert: Es el atajo rey. Úsalo para generar automáticamente el Constructor, Getters, Setters, equals() y hashCode().
+
+Ctrl + Espacio: Autocompletado (el IntelliSense de NetBeans).
+
+Alt + Shift + F: Formatear el código (el "Prettier" de NetBeans).
+
+sout + Tab: Escribe automáticamente System.out.println("");.
+
+psvm + Tab: Escribe el método public static void main....
+
+Ctrl + Shift + C: Comentar/Descomentar líneas.
+
+Importar todo lo que falte Ctrl + Shift + I
+ */
+
+ /*
+Usa Ctrl + Shift + I (Fix Imports). NetBeans analizará todo el archivo y
+añadirá todos los import java.util... que falten de golpe.
+ */
+public class SetMapyMas {
+
+    public static void main(String[] args) {
+      
+>>>>>>> 409c181 (.)
         // ============================
         // 1. MATRICES (Arrays Bidimensionales)
         // ============================
@@ -528,22 +596,39 @@ public class SetMapyMas {
 
         /*
          * Imagina que tienes esta clase fuera del main:
+<<<<<<< HEAD
          * 
+=======
+         *
+>>>>>>> 409c181 (.)
          * class Alumno implements Comparable<Alumno> {
          * int id;
          * String nombre;
          * double nota;
+<<<<<<< HEAD
          * 
          * // EL MÉTODO CLAVE:
          * 
+=======
+         *
+         * // EL MÉTODO CLAVE:
+         *
+>>>>>>> 409c181 (.)
          * @Override
          * public int compareTo(Alumno otro) {
          * // Ejemplo A: Ordenar por ID (Ascendente)
          * return this.id - otro.id;
+<<<<<<< HEAD
          * 
          * // Ejemplo B: Ordenar por Nombre (Alfabético)
          * // return this.nombre.compareTo(otro.nombre);
          * 
+=======
+         *
+         * // Ejemplo B: Ordenar por Nombre (Alfabético)
+         * // return this.nombre.compareTo(otro.nombre);
+         *
+>>>>>>> 409c181 (.)
          * // Ejemplo C: Ordenar por Nota (De mayor a menor)
          * // if (this.nota < otro.nota) return 1;
          * // if (this.nota > otro.nota) return -1;
@@ -557,5 +642,120 @@ public class SetMapyMas {
         // Gracias al compareTo, ahora puedes hacer esto:
         // Collections.sort(clase);
         // ¡Y Java ya sabe que debe usar el ID (o lo que hayas puesto)!
+<<<<<<< HEAD
+=======
+        // ============================
+        // 22. RECURSIVIDAD (Lógica de examen)
+        // ============================
+        // TRAMPA: Olvidar el "Caso Base". Sin él, lanzará StackOverflowError.
+        // Ejemplo típico: Factorial o Fibonacci.
+        /*
+        public static int factorial(int n) {
+            if (n <= 1) return 1; // CASO BASE: Evita el bucle infinito
+            return n * factorial(n - 1);
+        }
+         */
+        // ============================
+        // 27. TRATAMIENTO DE EXCEPCIONES (Try-Catch)
+        // ============================
+        // TRAMPA: El programa explota si el usuario mete letras en un sc.nextInt().
+        // SIEMPRE usa sc.nextLine() en el catch para limpiar el buffer.
+        Scanner sc = new Scanner(System.in);
+        try {
+            System.out.println("Introduce un número:");
+            int n = Integer.parseInt(sc.nextLine());
+        } catch (NumberFormatException | InputMismatchException e) {
+            System.out.println("Error: No es un número válido.");
+            // sc.nextLine(); // Limpiar buffer si usas nextInt()
+        }
+
+        // ============================
+        // 28. EFICIENCIA CON STRINGBUILDER
+        // ============================
+        // TRAMPA: Concatenar Strings con "+" en bucles largos (crea miles de objetos).
+        // Úsalo para generar tickets, listas de lotería o informes.
+        StringBuilder aaa = new StringBuilder();
+        for (int i = 0; i < 10; i++) {
+            sb.append("Línea ").append(i).append("\n");
+        }
+        String resultado = sb.toString();
+
+        // ============================
+        // 29. DIAGONALES EN MATRICES
+        // ============================
+        int[][] mEx = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
+        for (int i = 0; i < mEx.length; i++) {
+            for (int j = 0; j < mEx[i].length; j++) {
+                if (i == j) {
+                    /* Diagonal Principal */ }
+                if (i + j == mEx.length - 1) {
+                    /* Diagonal Secundaria */ }
+            }
+        }
+
+        // ============================
+        // 30. EL MÉTODO compareTo (Criterios de Orden)
+        // ============================
+        // TRAMPA 1: Restar doubles. No hagas (int)(d1 - d2). Usa Double.compare.
+        // TRAMPA 2: Ordenar por dos criterios (Apellido y si coinciden, Nombre).
+        /*
+        @Override
+        public int compareTo(Persona o) {
+            int res = this.apellidos.compareToIgnoreCase(o.apellidos);
+            if (res == 0) { // Si son iguales, desempata por nombre
+                return this.nombre.compareToIgnoreCase(o.nombre);
+            }
+            return res;
+        }
+         */
+        // ============================
+        // 31. MULTIMAPS (Una clave -> Varios valores)
+        // ============================
+        // TRAMPA: Si usas map.put(key, valor), sobrescribes el anterior.
+        // Si quieres guardar todas las traducciones de una palabra o todas las vacas de un establo:
+        Map<String, List<String>> multiMap = new HashMap<>();
+        String key = "Dog";
+        multiMap.putIfAbsent(key, new ArrayList<>()); // Crea la lista si no existe
+        multiMap.get(key).add("Perro");
+        multiMap.get(key).add("Can");
+
+        // ============================
+        // 32. CONVERSIONES CRÍTICAS (Chuleta rápida)
+        // ============================
+        /*
+         * 1. List a Set (Quitar duplicados):
+         * Set<Persona> miSet = new HashSet<>(miLista);
+         *
+         * 2. Set a List (Para ordenar o get(i)):
+         * List<Persona> miLista = new ArrayList<>(miSet);
+         *
+         * 3. Map a List de Valores:
+         * List<Persona> lista = new ArrayList<>(miMap.values());
+         *
+         * 4. Map a Stream (Conversión Pro):
+         * Map<String, Persona> mapa = lista.stream()
+         * .collect(Collectors.toMap(Persona::getNif, Function.identity()));
+         */
+        // ============================
+        // 33. BÚSQUEDA EN SETS (El error de Vaqueria)
+        // ============================
+        // TRAMPA: setVacas.contains(5) devolverá FALSE aunque una vaca tenga ID 5.
+        // DEBES pasar un objeto del mismo tipo que el Set.
+        /*
+        public static boolean existeVaca(Set<Vaca> conjunto, int idBuscado) {
+            // Mal: return conjunto.contains(idBuscado);
+            // Bien: Crear una vaca temporal con ese ID para que .equals() la encuentre
+            return conjunto.contains(new Vaca(idBuscado, null, ""));
+        }
+         */
+        // ============================
+        // 34. TIPOS DE MAPS (¿Cuál elegir?)
+        // ============================
+        /*
+         * - HashMap: El más rápido. Sin orden. (Uso general).
+         * - TreeMap: Ordenado por la CLAVE (Alfabético/Numérico). Lento.
+         * - LinkedHashMap: Mantiene el ORDEN DE INSERCIÓN. (Útil para menús o historial).
+         */
+>>>>>>> 409c181 (.)
     }
 }
